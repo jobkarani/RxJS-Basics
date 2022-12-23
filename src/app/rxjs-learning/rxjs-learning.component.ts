@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  Observable, of } from 'rxjs';
+import {  from, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-learning',
@@ -12,8 +12,12 @@ export class RxjsLearningComponent implements OnInit {
   // agentName!:string;
 
    // // of operator ***********************************************
-  studentList = ['Tina','mary','cate']
-  students:Observable<string[]> = of(this.studentList);
+  // studentList = ['Tina','mary','cate']
+  // students:Observable<string[]> = of(this.studentList);
+
+  // // from operator ********************************************
+  ordersArray = ['mary','tina','peshy','meg'];
+  orders$:Observable<string> = from(this.ordersArray);
 
   constructor() {}
 
@@ -41,9 +45,15 @@ export class RxjsLearningComponent implements OnInit {
     //     })
 
     // // of operator ***********************************************
-    this.students.subscribe(data=>{
+    // this.students.subscribe(data=>{
+    //   console.log(data);
+    // })
+
+    // // from operator ********************************************
+    this.orders$.subscribe(data=>{
       console.log(data);
     })
+
 
   }
 
