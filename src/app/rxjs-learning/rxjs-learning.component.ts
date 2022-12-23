@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {  from, Observable, of } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {  from, fromEvent, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-learning',
@@ -16,8 +16,12 @@ export class RxjsLearningComponent implements OnInit {
   // students:Observable<string[]> = of(this.studentList);
 
   // // from operator ********************************************
-  ordersArray = ['mary','tina','peshy','meg'];
-  orders$:Observable<string> = from(this.ordersArray);
+  // ordersArray = ['mary','tina','peshy','meg'];
+  // orders$:Observable<string> = from(this.ordersArray);
+
+  // // fromEvent operator ********************************************
+  @ViewChild('validate')
+  validate!: ElementRef;
 
   constructor() {}
 
@@ -50,11 +54,19 @@ export class RxjsLearningComponent implements OnInit {
     // })
 
     // // from operator ********************************************
-    this.orders$.subscribe(data=>{
-      console.log(data);
-    })
-
+    // this.orders$.subscribe(data=>{
+    //   console.log(data);
+    // })
 
   }
 
+  // // fromEvent operator ********************************************
+
+  rxjsobservable(){
+    const btnObservable$ = fromEvent(this.validate?.nativeElement, 'click');
+
+    btnObservable$.subscribe(data=>{
+      console.log(data);
+    })
+  }
 }
