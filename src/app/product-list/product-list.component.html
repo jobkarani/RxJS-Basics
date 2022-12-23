@@ -1,1 +1,22 @@
-<p>product-list works!</p>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Code</th>
+                <th scope="col">Date</th>
+                <th scope="col">Rating</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prods of product">
+                    <td>@</td>
+                    <td>{{prods.name}}</td>
+                    <td>{{prods.code | lowercase}}</td>
+                    <td>{{prods.date | date}}</td>
+                    <td><app-stars-rating></app-stars-rating></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
