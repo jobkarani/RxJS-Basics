@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { observable, Observable } from 'rxjs';
+import {  Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-learning',
@@ -7,30 +7,44 @@ import { observable, Observable } from 'rxjs';
   styleUrls: ['./rxjs-learning.component.css']
 })
 export class RxjsLearningComponent implements OnInit {
+  // // subscribing to an observable ************************
+  // agents!:Observable<string>;
+  // agentName!:string;
 
-  agents!:Observable<string>;
-  agentName!:string;
+   // // of operator ***********************************************
+  studentList = ['Tina','mary','cate']
+  students:Observable<string[]> = of(this.studentList);
 
   constructor() {}
 
   ngOnInit(): void {
-      this.agents = new Observable(
-        function (observer){
-          try{
-            observer.next('ayub');
-            setInterval(()=>{
-              observer.next('tina');
-            }, 2000);
-          }
-          catch(e){
-            observer.error(e);
-          }
-        }
-      );
-        this.agents.subscribe(data =>{
-          this.agentName = data;
-          console.log(data);
-        })
+
+    // // subscribing to an observable ************************
+
+
+    //   this.agents = new Observable(
+    //     function (observer){
+    //       try{
+    //         observer.next('ayub');
+    //         setInterval(()=>{
+    //           observer.next('tina');
+    //         }, 2000);
+    //       }
+    //       catch(e){
+    //         observer.error(e);
+    //       }
+    //     }
+    //   );
+    //     this.agents.subscribe(data =>{
+    //       this.agentName = data;
+    //       console.log(data);
+    //     })
+
+    // // of operator ***********************************************
+    this.students.subscribe(data=>{
+      console.log(data);
+    })
+
   }
 
 }
