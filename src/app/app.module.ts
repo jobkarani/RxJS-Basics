@@ -7,6 +7,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { StarsRatingComponent } from './shared/stars-rating/stars-rating.component';
 import { RxjsLearningComponent } from './rxjs-learning/rxjs-learning.component';
+import { SearchComponent } from './search/search.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,14 @@ import { RxjsLearningComponent } from './rxjs-learning/rxjs-learning.component';
     ProductListComponent,
     StarRatingComponent,
     StarsRatingComponent,
-    RxjsLearningComponent
+    RxjsLearningComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

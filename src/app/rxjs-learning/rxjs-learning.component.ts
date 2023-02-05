@@ -16,8 +16,8 @@ export class RxjsLearningComponent implements OnInit {
   // students:Observable<string[]> = of(this.studentList);
 
   // // from operator ********************************************
-  ordersArray = ['mary','tina','peshy','meg'];
-  orders$:Observable<string> = from(this.ordersArray);
+  // ordersArray = ['mary','tina','peshy','meg'];
+  // orders$:Observable<string> = from(this.ordersArray);
 
   // // fromEvent operator ********************************************
   @ViewChild('validate')
@@ -29,17 +29,26 @@ export class RxjsLearningComponent implements OnInit {
 
     // // subscribing to an observable ************************
 
+    // debounceTime operator ********************************
+    // USE CASES 
+    //  1. Search
+    //     -> User type the values 
+    //     -? fast -> API calls
+
+    //   2. Delay / Emit the next observable after a given period of time
+
+
     // interval operator *********************************************
-    this.orders$.subscribe(orders =>{
+    // this.orders$.subscribe(orders =>{
 
-      const seqNum$ = interval(500);
+    //   const seqNum$ = interval(500);
 
-      seqNum$.subscribe(num =>{
-        if(num < 5){
-          console.log(orders + num);
-        }
-      })
-    })
+    //   seqNum$.subscribe(num =>{
+    //     if(num < 5){
+    //       console.log(orders + num);
+    //     }
+    //   })
+    // })
 
     //   this.agents = new Observable(
     //     function (observer){
