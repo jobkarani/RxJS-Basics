@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {  from, fromEvent, Observable, of } from 'rxjs';
+import {  from, fromEvent, interval, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-rxjs-learning',
@@ -16,8 +16,8 @@ export class RxjsLearningComponent implements OnInit {
   // students:Observable<string[]> = of(this.studentList);
 
   // // from operator ********************************************
-  // ordersArray = ['mary','tina','peshy','meg'];
-  // orders$:Observable<string> = from(this.ordersArray);
+  ordersArray = ['mary','tina','peshy','meg'];
+  orders$:Observable<string> = from(this.ordersArray);
 
   // // fromEvent operator ********************************************
   @ViewChild('validate')
@@ -29,6 +29,17 @@ export class RxjsLearningComponent implements OnInit {
 
     // // subscribing to an observable ************************
 
+    // interval operator *********************************************
+    this.orders$.subscribe(orders =>{
+
+      const seqNum$ = interval(500);
+
+      seqNum$.subscribe(num =>{
+        if(num < 5){
+          console.log(orders + num);
+        }
+      })
+    })
 
     //   this.agents = new Observable(
     //     function (observer){
@@ -61,12 +72,12 @@ export class RxjsLearningComponent implements OnInit {
   }
 
   // // fromEvent operator ********************************************
+  // rxjsobservable(){
+  //   const btnObservable$ = fromEvent(this.validate?.nativeElement, 'click');
 
-  rxjsobservable(){
-    const btnObservable$ = fromEvent(this.validate?.nativeElement, 'click');
+  //   btnObservable$.subscribe(data=>{
+  //     console.log(data);
+  //   })
+  // }
 
-    btnObservable$.subscribe(data=>{
-      console.log(data);
-    })
-  }
 }
