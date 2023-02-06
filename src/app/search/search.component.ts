@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, take, takeWhile } from 'rxjs';
+import { debounceTime, from, Observable, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -9,6 +9,9 @@ import { debounceTime, take, takeWhile } from 'rxjs';
 })
 export class SearchComponent implements OnInit{
   searchForm!: FormGroup;
+
+  categories = ['mobiles','tvs', 'chargers', 'headphones', 'laptops'];
+  category$: Observable<string> = from(this.categories);
 
   constructor(private formBuilder: FormBuilder){}
 
@@ -22,12 +25,19 @@ export class SearchComponent implements OnInit{
 
     this.searchForm.get('name')?.valueChanges
     .pipe(
-      takeWhile((v) => this.checkCount(v)),
+      // takeLast(2),
+      // takeWhile((v) => this.checkCount(v)), // take values till a condition is true
       // take(2),  // take only 2 values
       debounceTime(5000) // time lag before it emits the next value
     )
     .subscribe(data =>{
       console.log(data);
+      this.category$.pipe(
+        takeLast(2) // used whenever one is sure about the data set, and you need specific last emitted values
+      )
+      .subscribe(data2 => {
+          console.log(data2);
+        })
     })
   }
 
