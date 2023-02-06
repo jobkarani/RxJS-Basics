@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
+import { debounceTime, elementAt, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -35,7 +35,8 @@ export class SearchComponent implements OnInit{
       this.category$.pipe(
         // takeLast(2) // used whenever one is sure about the data set, and you need specific last emitted values
         // first()
-        last()
+        // last()
+        elementAt(3) // returns headphones 
       )
       .subscribe(data2 => {
           console.log(data2);
