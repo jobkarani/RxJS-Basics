@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, elementAt, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
+import { debounceTime, elementAt, filter, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -28,24 +28,30 @@ export class SearchComponent implements OnInit{
       // takeLast(2),
       // takeWhile((v) => this.checkCount(v)), // take values till a condition is true
       // take(2),  // take only 2 values
-      debounceTime(5000) // time lag before it emits the next value
+      // debounceTime(5000) // time lag before it emits the next value
+      
+      filter((v) => this.checkCharCount(v)), 
     )
     .subscribe(data =>{
       console.log(data);
-      this.category$.pipe(
-        // takeLast(2) // used whenever one is sure about the data set, and you need specific last emitted values
-        // first()
-        // last()
-        elementAt(3) // returns headphones 
-      )
-      .subscribe(data2 => {
-          console.log(data2);
-        })
+
+      // this.category$.pipe(
+      //   // takeLast(2) // used whenever one is sure about the data set, and you need specific last emitted values
+      //   // first()
+      //   // last()
+      //   elementAt(3) // returns headphones 
+      // )
+      // .subscribe(data2 => {
+      //     console.log(data2);
+      //   })
     })
+  }
+  checkCharCount(v:string){
+    return v.length < 10 ? false : true;
   }
 
   checkCount(value:string){
-    return value.length > 5 ? false : true;;
+    return value.length > 5 ? true : false;;
   }
 
   readValue(){
