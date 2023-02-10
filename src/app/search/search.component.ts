@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, elementAt, filter, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
+import { debounceTime, distinct, elementAt, filter, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +10,7 @@ import { debounceTime, elementAt, filter, first, from, last, Observable, take, t
 export class SearchComponent implements OnInit{
   searchForm!: FormGroup;
 
-  categories = ['mobiles','tvs', 'chargers', 'headphones', 'laptops'];
+  categories = ['tvs', 'mobiles', 'chargers', 'tvs', 'chargers', 'headphones', 'chargers', 'tvs', 'laptops'];
   category$: Observable<string> = from(this.categories);
 
   constructor(private formBuilder: FormBuilder){}
@@ -34,6 +34,10 @@ export class SearchComponent implements OnInit{
     )
     .subscribe(data =>{
       console.log(data);
+
+      this.category$.pipe(distinct()).subscribe(data =>{
+        console.log(data);
+      })
 
       // this.category$.pipe(
       //   // takeLast(2) // used whenever one is sure about the data set, and you need specific last emitted values
