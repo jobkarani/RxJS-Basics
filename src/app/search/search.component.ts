@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, distinct, elementAt, filter, first, from, last, Observable, take, takeLast, takeWhile } from 'rxjs';
+import { debounceTime, distinct, elementAt, filter, first, from, last, Observable, skip, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit{
     .subscribe(data =>{
       console.log(data);
 
-      this.category$.pipe(distinct()).subscribe(data =>{
+      this.category$.pipe(distinct(), skip(2)).subscribe(data =>{
         console.log(data);
       })
 
