@@ -37,15 +37,25 @@ export class SearchComponent implements OnInit{
     )
     .subscribe(data =>{
       console.log(data);
-
+// max operator 
+      // this.ranks$
+      // .pipe(
+      //   distinct(),
+      //   filter((v) => this.filterValues(v)),
+      //   max()
+      // )
+      // .subscribe(data =>{
+      //   console.log(`Max value is: ` + data);
+      // });
+// min operator 
       this.ranks$
       .pipe(
         distinct(),
         filter((v) => this.filterValues(v)),
-        max()
+        min()  
       )
       .subscribe(data =>{
-        console.log(`Max value is: ` + data);
+        console.log(`Min value is: ` + data);
       });
 
       this.category$.pipe(
@@ -68,9 +78,14 @@ export class SearchComponent implements OnInit{
       //   })
     })
   }
+// max operator
+  // filterValues(v:number){
+  //   return v < 10 ? false : true;
+  // }
 
+// min operator
   filterValues(v:number){
-    return v < 10 ? false : true;
+    return v > 30 ? false : true;
   }
 
   checkCharCount(v:string){
