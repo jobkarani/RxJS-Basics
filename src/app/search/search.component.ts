@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { count, debounceTime, distinct, elementAt, filter, first, from, last, Observable, skip, take, takeLast, takeWhile } from 'rxjs';
+import { count, debounceTime, distinct, elementAt, filter, first, from, last, max, min, Observable, skip, take, takeLast, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -12,6 +12,9 @@ export class SearchComponent implements OnInit{
 
   categories = ['tvs', 'mobiles', 'chargers', 'tvs', 'chargers', 'headphones', 'chargers', 'tvs', 'laptops'];
   category$: Observable<string> = from(this.categories);
+
+  ranks = [1,7,18,98,45,22,56];
+  ranks$: Observable<number> = from(this.ranks);
 
   constructor(private formBuilder: FormBuilder){}
 
@@ -35,6 +38,16 @@ export class SearchComponent implements OnInit{
     .subscribe(data =>{
       console.log(data);
 
+      this.ranks$
+      .pipe(
+        distinct(),
+        filter((v) => this.filterValues(v)),
+        max()
+      )
+      .subscribe(data =>{
+        console.log(`Max value is: ` + data);
+      });
+
       this.category$.pipe(
         distinct(), 
         // skip(2)
@@ -55,6 +68,11 @@ export class SearchComponent implements OnInit{
       //   })
     })
   }
+
+  filterValues(v:number){
+    return v < 10 ? false : true;
+  }
+
   checkCharCount(v:string){
     return v.length < 10 ? false : true;
   }
